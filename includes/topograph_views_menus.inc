@@ -101,3 +101,66 @@ function topograph_list_all_menus() {
   $handler->display->display_options['path'] = 'topograph-list-all-menus';
   return $view;
 }
+
+/**
+ * Custom data for the menu base table.
+ *
+ * @return array
+ */
+function topograph_menu_data() {
+  $data = array (
+    'link_title' => array(
+      'title' => t('Link title'),
+      'help' => t('Title of the link.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'menu_name' => array(
+      'title' => t('Menu title'),
+      'help' => t('Title of the menu.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'router_path' => array(
+      'title' => t('Router path'),
+      'help' => t('Router path of the link.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+  );
+
+  return $data;
+}

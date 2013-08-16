@@ -70,8 +70,96 @@ function topograph_list_all_nodetypes() {
   $handler->display->display_options['fields']['module']['label'] = '';
   $handler->display->display_options['fields']['module']['exclude'] = FALSE;
   $handler->display->display_options['fields']['module']['element_label_colon'] = FALSE;
+  /* Field: ID */
+  $handler->display->display_options['fields']['id']['id'] = 'id';
+  $handler->display->display_options['fields']['id']['table'] = 'node_type';
+  $handler->display->display_options['fields']['id']['field'] = 'id';
+  $handler->display->display_options['fields']['id']['label'] = '';
+  $handler->display->display_options['fields']['id']['exclude'] = FALSE;
+  $handler->display->display_options['fields']['id']['element_label_colon'] = FALSE;
+
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'topograph-list-all-nodetypes';
   return $view;
+}
+
+/**
+ * Custom data for the nodetype base table.
+ *
+ * @return array
+ */
+function topograph_node_data() {
+  $data = array(
+      'type' => array(
+      'title' => t('Machine name'),
+      'help' => t('Machine name of the node type.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'menu_name' => array(
+      'title' => t('Name'),
+      'help' => t('Name of the node type.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'module' => array(
+      'title' => t('Module'),
+      'help' => t('Module that defines the node type.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'description' => array(
+      'title' => t('Description'),
+      'help' => t('Description of the node type.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+  );
+  
+  return $data;
 }
