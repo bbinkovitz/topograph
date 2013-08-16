@@ -1,0 +1,6 @@
+; @copyright (c) Copyright 2013 Palantir.net
+
+name = Topograph
+description = Gives you the lay of the land by providing views of the inner workings of your site.
+core = 7.x
+version = 0.1

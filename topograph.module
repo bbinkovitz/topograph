@@ -1,0 +1,273 @@
+<?php
+
+/**
+ * @file
+ * Custom site functionality.
+ *
+ * @copyright (c) Copyright 2013 Palantir.net
+ */
+
+require_once 'includes/topograph_views_menus.inc';
+require_once 'includes/topograph_views_nodes.inc';
+require_once 'includes/topograph_views_block.inc';
+
+/**
+ * Implements hook_permission().
+ *
+ * Provide a permission for administering this module.
+ */
+function topograph_permission() {
+  return array(
+    'use topograph' => array(
+      'title' => t('Use the Topograph module'),
+      'description' => t('See stuff provided by the Topograph module.'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function topograph_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'topograph'),
+  );
+}
+
+/**
+ * Implements hook_views_default_views().
+ */
+function topograph_views_default_views() {
+    $views = array();
+    $view = topograph_list_all_menus();
+    $views[$view->name] = $view;
+    $view = topograph_list_all_nodetypes();
+    $views[$view->name] = $view;
+    $view = topograph_list_all_blocks();
+    $views[$view->name] = $view;
+    return $views;
+}
+
+/**
+ * hook_views_data().
+ */
+function topograph_views_data() {
+  // Custom base tables.
+  $data = array(
+    // menu_links base table.
+    'menu_links' => array (
+      'link_title' => array(
+        'title' => t('Link title'),
+        'help' => t('Title of the link.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'menu_name' => array(
+        'title' => t('Menu title'),
+        'help' => t('Title of the menu.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'router_path' => array(
+        'title' => t('Router path'),
+        'help' => t('Router path of the link.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+    ),
+    // node_type base table.
+    'node_type' => array(
+      'type' => array(
+        'title' => t('Machine name'),
+        'help' => t('Machine name of the node type.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'menu_name' => array(
+        'title' => t('Name'),
+        'help' => t('Name of the node type.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'module' => array(
+        'title' => t('Module'),
+        'help' => t('Module that defines the node type.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'description' => array(
+        'title' => t('Description'),
+        'help' => t('Description of the node type.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+    ),
+    // block base table
+    'block' => array(
+      'delta' => array(
+        'title' => t('Delta'),
+        'help' => t('Unique name of the block.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'theme' => array(
+        'title' => t('Theme'),
+        'help' => t('Theme for which these settings apply.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'status' => array(
+        'status' => t('Status'),
+        'help' => t('Block enabled status.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'region' => array(
+        'title' => t('Region'),
+        'help' => t('Region in which the block appears.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+      'module' => array(
+        'title' => t('Module'),
+        'help' => t('Module which declares the block.'),
+        'field' => array(
+          'handler' => 'views_handler_field',
+          'click sortable' => TRUE,
+        ),
+        'sort' => array(
+          'handler' => 'views_handler_sort',
+        ),
+        'filter' => array(
+          'handler' => 'views_handler_filter_string',
+        ),
+        'argument' => array(
+          'handler' => 'views_handler_argument_string',
+        ),
+      ),
+    ),
+  );
+  return $data;
+}
