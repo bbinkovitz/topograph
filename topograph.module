@@ -36,6 +36,40 @@ function topograph_views_api() {
 }
 
 /**
+ * Implements hook_vews_pre_render().
+ */
+function topograph_views_pre_render(&$view) {
+  if ($view->name == 'topograph_list_all_blocks') {
+    foreach ($view->result as $row) {
+      $row->block_status = ($row->block_status > 0 ? 'Enabled' : 'Disabled');
+      $row->block_region = ($row->block_region < 0 ? NULL : $row->block_region);
+   }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function topograph_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#id'] == 'views-exposed-form-topograph-list-all-blocks-page-1') {
+  // Get list of regions as options for filters.
+    $results = db_select('block', 'b')
+        ->fields('b')
+        ->execute()
+        ->fetchAll();
+    $regions = array();
+    foreach ($results as $result) {
+      $regions[$result->region] = $result->region;
+    }
+    $regions = array_unique($regions);
+    $regions['-1'] = '[none]';
+    $form['Region']['#type'] = 'select';
+    $form['Region']['#options'] = $regions;
+    $form['Region']['#size'] = 4;
+  }
+}
+
+/**
  * Implements hook_views_default_views().
  */
 function topograph_views_default_views() {

@@ -124,7 +124,25 @@ function topograph_list_all_blocks() {
     6 => 0,
     7 => 0,
   );
-
+  /* Filter criterion: : Region */
+  $handler->display->display_options['filters']['region']['id'] = 'region';
+  $handler->display->display_options['filters']['region']['table'] = 'block';
+  $handler->display->display_options['filters']['region']['field'] = 'region';
+  $handler->display->display_options['filters']['region']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['region']['expose']['operator_id'] = 'region_op';
+  $handler->display->display_options['filters']['region']['expose']['label'] = 'Region';
+  $handler->display->display_options['filters']['region']['expose']['description'] = 'Select which region\'s blocks to display';
+  $handler->display->display_options['filters']['region']['expose']['operator'] = 'region_op';
+  $handler->display->display_options['filters']['region']['expose']['identifier'] = 'Region';
+  $handler->display->display_options['filters']['region']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    5 => 0,
+    4 => 0,
+    3 => 0,
+    6 => 0,
+    7 => 0,
+  );
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'topograph-list-all-blocks';
