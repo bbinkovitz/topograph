@@ -13,70 +13,99 @@ function topograph_list_all_blocks() {
   /*
    * View 'topograph_list_all_blocks'
    */
-  $view = views_new_view();
+  $view = new view();
   $view->name = 'topograph_list_all_blocks';
   $view->description = 'Gives you the lay of the land for your blocks.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'block';
-  $view->is_cacheable = FALSE;
-  $view->api_version = '3.0-alpha1';
-  $view->disabled = FALSE;
+  $view->human_name = '';
+  $view->core = 0;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
   /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Topograph: List All Blocks';
-  $handler->display->display_options['access'] = array(
-    'type' => 'role',
-    'role' => array(
-      '3' => '3',
-    )
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
   );
   $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager'] = array(
-    'type' => 'full',
-    'options' => array(
-      'items_per_page'=> '100',
-      'offset' => '0',
-      'id' => '0',
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '100';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'delta' => 'delta',
+    'status' => 'status',
+    'region' => 'region',
+    'theme' => 'theme',
+    'module' => 'module',
+  );
+  $handler->display->display_options['style_options']['default'] = 'delta';
+  $handler->display->display_options['style_options']['info'] = array(
+    'delta' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'status' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'region' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'theme' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'module' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
     ),
   );
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Delta name */
+  /* Field: : Delta */
   $handler->display->display_options['fields']['delta']['id'] = 'delta';
   $handler->display->display_options['fields']['delta']['table'] = 'block';
   $handler->display->display_options['fields']['delta']['field'] = 'delta';
-  $handler->display->display_options['fields']['delta']['label'] = '';
-  $handler->display->display_options['fields']['delta']['element_label_colon'] = TRUE;
-  /* Field: Status */
+  /* Field: :  */
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'block';
   $handler->display->display_options['fields']['status']['field'] = 'status';
-  $handler->display->display_options['fields']['status']['label'] = '';
-  $handler->display->display_options['fields']['status']['element_label_colon'] = TRUE;
-  /* Field: Region */
+  $handler->display->display_options['fields']['status']['label'] = 'Status';
+  /* Field: : Region */
   $handler->display->display_options['fields']['region']['id'] = 'region';
   $handler->display->display_options['fields']['region']['table'] = 'block';
   $handler->display->display_options['fields']['region']['field'] = 'region';
-  $handler->display->display_options['fields']['region']['label'] = '';
-  $handler->display->display_options['fields']['region']['exclude'] = FALSE;
-  $handler->display->display_options['fields']['region']['element_label_colon'] = TRUE;
-  /* Field: Theme */
+  /* Field: : Theme */
   $handler->display->display_options['fields']['theme']['id'] = 'theme';
   $handler->display->display_options['fields']['theme']['table'] = 'block';
   $handler->display->display_options['fields']['theme']['field'] = 'theme';
-  $handler->display->display_options['fields']['theme']['label'] = '';
-  $handler->display->display_options['fields']['theme']['exclude'] = FALSE;
-  $handler->display->display_options['fields']['theme']['element_label_colon'] = TRUE;
-  /* Field: Module */
+  /* Field: : Module */
   $handler->display->display_options['fields']['module']['id'] = 'module';
   $handler->display->display_options['fields']['module']['table'] = 'block';
   $handler->display->display_options['fields']['module']['field'] = 'module';
-  $handler->display->display_options['fields']['module']['label'] = '';
-  $handler->display->display_options['fields']['module']['exclude'] = FALSE;
-  $handler->display->display_options['fields']['module']['element_label_colon'] = TRUE;
-  /* Filter criterion: : Menu title */
+  /* Filter criterion: : Theme */
   $handler->display->display_options['filters']['theme']['id'] = 'theme';
   $handler->display->display_options['filters']['theme']['table'] = 'block';
   $handler->display->display_options['filters']['theme']['field'] = 'theme';
@@ -95,6 +124,7 @@ function topograph_list_all_blocks() {
     6 => 0,
     7 => 0,
   );
+
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'topograph-list-all-blocks';
