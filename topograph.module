@@ -58,14 +58,19 @@ function topograph_form_alter(&$form, &$form_state, $form_id) {
         ->execute()
         ->fetchAll();
     $regions = array();
+    $themes = array();
     foreach ($results as $result) {
       $regions[$result->region] = $result->region;
+      $themes[$result->theme] = $result->theme;
     }
     $regions = array_unique($regions);
     $regions['-1'] = '[none]';
     $form['Region']['#type'] = 'select';
     $form['Region']['#options'] = $regions;
-    $form['Region']['#size'] = 4;
+    $form['Region']['#size'] = max(count($themes), count($regions));
+    $form['Theme']['#type'] = 'select';
+    $form['Theme']['#options'] = $themes;
+    $form['Theme']['#size'] = max(count($themes), count($regions));
   }
 }
 
