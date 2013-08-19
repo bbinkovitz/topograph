@@ -39,12 +39,25 @@ function topograph_views_api() {
 /**
  * Implements hook_vews_pre_render().
  */
-function topograph_views_pre_render(&$view) {
+function topograph_views_post_execute(&$view) {
   if ($view->name == 'topograph_list_all_blocks') {
     foreach ($view->result as $row) {
       $row->block_status = ($row->block_status > 0 ? 'Enabled' : 'Disabled');
       $row->block_region = ($row->block_region < 0 ? NULL : $row->block_region);
    }
+  }
+  if ($view->name == 'topograph_list_all_fields') {
+    foreach ($view->result as $row) {
+      $data = unserialize($row->field_config_instance_data);
+      $info = '';
+      $info .= $data['label'];
+      if (!empty($data['description'])) { $info .= ' (' . $data['description'] . ')';}
+
+      $row->field_config_instance_data = $info;
+
+      $data_base = unserialize($row->field_config_data);
+      dpm($data_base);
+    }
   }
 }
 
@@ -102,5 +115,18 @@ function topograph_views_data() {
   $data['block'] = topograph_block_data();
   $data['field_config'] = topograph_field_data();
   $data['field_config_instance'] = topograph_field_instance_data();
+
+
+  // Join node_type to field_config via field_config_instance.
+  $data['node_type']['table']['join']['field_config'] = array(
+    'left_table' => 'field_config_instance',
+    'left_field' => 'bundle',
+    'field' => 'type',
+  );
+  // Join field_config_instance to field_config, which is our base table.
+  $data['field_config_instance']['table']['join']['field_config'] = array(
+    'left_field' => 'id',
+    'field' => 'field_id',
+  );
   return $data;
 }

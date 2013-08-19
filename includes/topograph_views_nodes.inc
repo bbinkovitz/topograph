@@ -91,9 +91,18 @@ function topograph_list_all_nodetypes() {
  */
 function topograph_node_data() {
   $data = array(
-      'type' => array(
-      'title' => t('Machine name'),
+    'table' => array(
+      'base' => array(
+        'field' => 'type',
+        'title' => t('Nodetypes'),
+        'help' => t(''),
+        'weight' => 0,
+      ),
+    ),
+    'type' => array(
+      'title' => t('Nodetype machine name'),
       'help' => t('Machine name of the node type.'),
+      'group' => 'Nodetype',
       'field' => array(
         'handler' => 'views_handler_field',
         'click sortable' => TRUE,
@@ -108,9 +117,10 @@ function topograph_node_data() {
         'handler' => 'views_handler_argument_string',
       ),
     ),
-    'menu_name' => array(
-      'title' => t('Name'),
-      'help' => t('Name of the node type.'),
+    'name' => array(
+      'title' => t('Nodetype Name'),
+      'help' => t('Human-readable name of the node type.'),
+      'group' => 'Nodetype',
       'field' => array(
         'handler' => 'views_handler_field',
         'click sortable' => TRUE,
@@ -126,8 +136,9 @@ function topograph_node_data() {
       ),
     ),
     'module' => array(
-      'title' => t('Module'),
+      'title' => t('Nodetype Module'),
       'help' => t('Module that defines the node type.'),
+      'group' => 'Nodetype',
       'field' => array(
         'handler' => 'views_handler_field',
         'click sortable' => TRUE,
@@ -143,8 +154,45 @@ function topograph_node_data() {
       ),
     ),
     'description' => array(
-      'title' => t('Description'),
+      'title' => t('Nodetype Description'),
       'help' => t('Description of the node type.'),
+      'group' => 'Nodetype',
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'help' => array(
+      'title' => t('Nodetype Help'),
+      'help' => t('Help text of the node type.'),
+      'group' => 'Nodetype',
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'title_label' => array(
+      'title' => t('Nodetype Title Label'),
+      'help' => t('Title label of the node type.'),
+      'group' => 'Nodetype',
       'field' => array(
         'handler' => 'views_handler_field',
         'click sortable' => TRUE,
@@ -160,6 +208,6 @@ function topograph_node_data() {
       ),
     ),
   );
-  
+
   return $data;
 }

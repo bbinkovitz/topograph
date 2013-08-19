@@ -212,13 +212,24 @@ function topograph_field_instance_data() {
         'handler' => 'views_handler_argument_string',
       ),
     ),
+    'data' => array(
+      'group' => t('Field instance'),
+      'title' => t('Field instance data'),
+      'help' => t('Serialized data from the field instance settings.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
   );
-
-  // Join field_config_instance to field_config, which is our base table.
-  $data['table']['join']['field_config'] = array(
-    'left_field' => 'id',
-    'field' => 'field_id',
-  );
-
   return $data;
 }
