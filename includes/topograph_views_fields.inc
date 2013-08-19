@@ -84,8 +84,17 @@ function topograph_list_all_fields() {
  */
 function topograph_field_data() {
   $data = array(
+    'table' => array(
+      'base' => array(
+        'field' => 'id',
+        'title' => t('Fields'),
+        'help' => t(''),
+        'weight' => 0,
+      ),
+    ),
     'field_name' => array(
       'title' => t('Field Name'),
+      'group' => t('Topograph'),
       'help' => t('Name of the field.'),
       'field' => array(
         'handler' => 'views_handler_field',
@@ -102,6 +111,7 @@ function topograph_field_data() {
       ),
     ),
     'type' => array(
+      'group' => t('Topograph'),
       'title' => t('Field type'),
       'help' => t('Type of the field.'),
       'field' => array(
@@ -119,6 +129,7 @@ function topograph_field_data() {
       ),
     ),
     'module' => array(
+      'group' => t('Topograph'),
       'title' => t('Module'),
       'help' => t('Module that supplies the field.'),
       'field' => array(
@@ -136,6 +147,7 @@ function topograph_field_data() {
       ),
     ),
     'id' => array(
+      'group' => t('Topograph'),
       'title' => t('ID'),
       'help' => t('Field ID.'),
       'field' => array(
@@ -154,21 +166,58 @@ function topograph_field_data() {
     ),
   );
 
-  $data['table']['join'] = array(
-    'field_config_instance' => array(
-      'left_field' => 'field_id',
-      'field' => 'id',
+  return $data;
+}
+
+/**
+ *
+ * @return array
+ */
+function topograph_field_instance_data() {
+
+  $data = array(
+    'field_id' => array(
+      'group' => t('Topograph'),
+      'title' => t('Field ID'),
+      'help' => t('The ID of the field in the field_config_instance table.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'bundle' => array(
+      'group' => t('Topograph'),
+      'title' => t('Bundle'),
+      'help' => t('The bundle (content type) on which this field appears.'),
+      'field' => array(
+        'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
     ),
   );
-  $data['field_id'] = array(
-    'title' => t('Field ID'),
-    'help' => t('The ID of the field in the field_config_instance table.'),
-    'relationship' => array(
-      'base' => 'field_config_instance',
-      'field' => 'field_id',
-      'handler' => 'views_handler_relationship',
-      'label' => t('Field instance data.'),
-    ),
+
+  // Join field_config_instance to field_config, which is our base table.
+  $data['table']['join']['field_config'] = array(
+    'left_field' => 'id',
+    'field' => 'field_id',
   );
 
   return $data;

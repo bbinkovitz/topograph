@@ -101,6 +101,6 @@ function topograph_views_data() {
   $data['node_type'] = topograph_node_data();
   $data['block'] = topograph_block_data();
   $data['field_config'] = topograph_field_data();
-
+  $data['field_config_instance'] = topograph_field_instance_data();
   return $data;
 }
