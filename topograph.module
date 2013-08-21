@@ -2,15 +2,17 @@
 
 /**
  * @file
- * Custom site functionality.
- *
- * @copyright (c) Copyright 2013 Palantir.net
+ * Topograph provides views that give you the lay of your site's architecture.
  */
 
 require_once 'includes/topograph_views_menus.inc';
 require_once 'includes/topograph_views_nodes.inc';
 require_once 'includes/topograph_views_block.inc';
 require_once 'includes/topograph_views_fields.inc';
+require_once 'includes/handlers/topograph_nodetype_menus.inc';
+require_once 'includes/handlers/topograph_nodetype_options.inc';
+require_once 'includes/handlers/topograph_nodetype_preview.inc';
+require_once 'includes/handlers/topograph_nodetype_submitted.inc';
 
 /**
  * Implements hook_permission().
