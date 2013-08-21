@@ -226,6 +226,63 @@ function topograph_node_data() {
         'handler' => 'views_handler_argument_string',
       ),
     ),
+    'nodetype_options' => array(
+      'real field' => 'type',
+      'group' => t('Node options'),
+      'title' => t('Nodetype options'),
+      'help' => t('Options settings for this nodetype.'),
+      'field' => array(
+        'handler' => 'topograph_nodetype_options_views_handler',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'nodetype_submitted' => array(
+      'real field' => 'type',
+      'group' => t('Node submitted'),
+      'title' => t('Nodetype submitted'),
+      'help' => t('Submission settings for this nodetype.'),
+      'field' => array(
+        'handler' => 'topograph_nodetype_submitted_views_handler',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'nodetype_preview' => array(
+      'real field' => 'type',
+      'group' => t('Node preview'),
+      'title' => t('Nodetype preview'),
+      'help' => t('Preview settings for this nodetype.'),
+      'field' => array(
+        'handler' => 'topograph_nodetype_preview_views_handler',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
   );
 
   return $data;
@@ -238,9 +295,7 @@ function topograph_node_data() {
 class topograph_nodetype_menus_views_handler extends views_handler_field {
 
   /**
-  * Render whatever the data is as a link to the node.
-  *
-  * Data should be made XSS safe prior to calling this function.
+  * Render the available menus for this nodetype.
   */
   function render($values) {
     $value = $this->get_value($values);
@@ -259,5 +314,79 @@ class topograph_nodetype_menus_views_handler extends views_handler_field {
       }
     }
     return $this->sanitize_value($menu_list);
+  }
+}
+
+
+/**
+ * @inheritdoc
+ */
+class topograph_nodetype_options_views_handler extends views_handler_field {
+
+  /**
+  * Render the options settings for this nodetype.
+  */
+  function render($values) {
+    $value = $this->get_value($values);
+    $available_options = array(
+      'status' => t('Published'),
+      'promote' => t('Promoted to front page'),
+      'sticky' => t('Sticky at top of lists'),
+      'revision' => t('Create new revision'),
+    );
+
+    $options_list = '';
+    if(!empty($value)) {
+      $options = variable_get('node_options_' . $value);
+      $count = 0;
+      if (!empty($options)) {
+        foreach ($options as $option) {
+          $options_list .= $available_options[$option];
+          $count++;
+          if ($count < (count($options))) {
+            $options_list .= ', ';
+          }
+        }
+      }
+    }
+    return $this->sanitize_value($options_list);
+  }
+}
+
+
+/**
+ * @inheritdoc
+ */
+class topograph_nodetype_submitted_views_handler extends views_handler_field {
+
+  /**
+  * Render the submit settings for this nodetype.
+  */
+  function render($values) {
+    $value = $this->get_value($values);
+    $submitted = '';
+    if(!empty($value)) {
+      $submitted = (variable_get('node_submitted_' . $value) > 0 ? t('Display author and date information') : t('Do not display author and date information'));
+    }
+    return $this->sanitize_value($submitted);
+  }
+}
+
+
+/**
+ * @inheritdoc
+ */
+class topograph_nodetype_preview_views_handler extends views_handler_field {
+
+  /**
+  * Render the preview settings for this nodetype.
+  */
+  function render($values) {
+    $value = $this->get_value($values);
+    $preview = '';
+    if(!empty($value)) {
+      $preview = (variable_get('node_preview_' . $value) > 0 ? t('Preview before submitting') : t('Do not preview before submitting'));
+    }
+    return $this->sanitize_value($preview);
   }
 }

@@ -215,10 +215,22 @@ function topograph_list_all_fields() {
   $handler->display->display_options['fields']['title_label']['label'] = 'Title Label';
   $handler->display->display_options['fields']['title_label']['exclude'] = TRUE;
   $handler->display->display_options['fields']['title_label']['empty'] = '[none]';
-  /* Field: Nodtype: Available menus */
+  /* Field: Nodetype: Available menus */
   $handler->display->display_options['fields']['nodetype_menus']['id'] = 'nodetype_menus';
   $handler->display->display_options['fields']['nodetype_menus']['table'] = 'node_type';
   $handler->display->display_options['fields']['nodetype_menus']['field'] = 'nodetype_menus';
+  /* Field: Nodetype: Node options */
+  $handler->display->display_options['fields']['nodetype_options']['id'] = 'nodetype_options';
+  $handler->display->display_options['fields']['nodetype_options']['table'] = 'node_type';
+  $handler->display->display_options['fields']['nodetype_options']['field'] = 'nodetype_options';
+  /* Field: Nodetype: Node submitted */
+  $handler->display->display_options['fields']['nodetype_submitted']['id'] = 'nodetype_submitted';
+  $handler->display->display_options['fields']['nodetype_submitted']['table'] = 'node_type';
+  $handler->display->display_options['fields']['nodetype_submitted']['field'] = 'nodetype_submitted';
+  /* Field: Nodetype: Node preview */
+  $handler->display->display_options['fields']['nodetype_preview']['id'] = 'nodetype_preview';
+  $handler->display->display_options['fields']['nodetype_preview']['table'] = 'node_type';
+  $handler->display->display_options['fields']['nodetype_preview']['field'] = 'nodetype_preview';
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'topograph-list-all-fields';
