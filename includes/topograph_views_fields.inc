@@ -278,6 +278,12 @@ $handler->display->display_options['fields']['nodetype_options']['table'] = 'nod
 $handler->display->display_options['fields']['nodetype_options']['field'] = 'nodetype_options';
 $handler->display->display_options['fields']['nodetype_options']['exclude'] = TRUE;
 $handler->display->display_options['fields']['nodetype_options']['empty'] = '[no options set]';
+/* Field: Field instance: Field label */
+$handler->display->display_options['fields']['field_label']['id'] = 'field_label';
+$handler->display->display_options['fields']['field_label']['table'] = 'field_config_instance';
+$handler->display->display_options['fields']['field_label']['field'] = 'field_label';
+$handler->display->display_options['fields']['field_label']['exclude'] = FALSE;
+$handler->display->display_options['fields']['field_label']['empty'] = '[no options set]';
 /* Field: Node submitted: Nodetype submitted */
 $handler->display->display_options['fields']['nodetype_submitted']['id'] = 'nodetype_submitted';
 $handler->display->display_options['fields']['nodetype_submitted']['table'] = 'node_type';
@@ -458,6 +464,25 @@ function topograph_field_instance_data() {
       'help' => t('Serialized data from the field instance settings.'),
       'field' => array(
         'handler' => 'views_handler_field',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
+    'field_label' => array(
+      'real field' => 'data',
+      'group' => t('Field instance'),
+      'title' => t('Label'),
+      'help' => t('Human-readable label of the field instance.'),
+      'field' => array(
+        'handler' => 'topograph_field_instance_label_views_handler',
         'click sortable' => TRUE,
       ),
       'sort' => array(

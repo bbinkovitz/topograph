@@ -13,6 +13,7 @@ require_once 'includes/handlers/topograph_nodetype_menus.inc';
 require_once 'includes/handlers/topograph_nodetype_options.inc';
 require_once 'includes/handlers/topograph_nodetype_preview.inc';
 require_once 'includes/handlers/topograph_nodetype_submitted.inc';
+require_once 'includes/handlers/topograph_field_instance_label.inc';
 
 /**
  * Implements hook_permission().
