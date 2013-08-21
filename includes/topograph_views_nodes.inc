@@ -207,7 +207,57 @@ function topograph_node_data() {
         'handler' => 'views_handler_argument_string',
       ),
     ),
+    'nodetype_menus' => array(
+      'real field' => 'type',
+      'group' => t('Menus'),
+      'title' => t('Nodetype menus'),
+      'help' => t('Menus available for this nodetype.'),
+      'field' => array(
+        'handler' => 'topograph_nodetype_menus_views_handler',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'views_handler_sort',
+      ),
+      'filter' => array(
+        'handler' => 'views_handler_filter_string',
+      ),
+      'argument' => array(
+        'handler' => 'views_handler_argument_string',
+      ),
+    ),
   );
 
   return $data;
+}
+
+
+/**
+ * @inheritdoc
+ */
+class topograph_nodetype_menus_views_handler extends views_handler_field {
+
+  /**
+  * Render whatever the data is as a link to the node.
+  *
+  * Data should be made XSS safe prior to calling this function.
+  */
+  function render($values) {
+    $value = $this->get_value($values);
+    $menu_list = '';
+    if(!empty($value)) {
+      $menus = variable_get('menu_options_' . $value);
+      $count = 0;
+      if (!empty($menus)) {
+        foreach ($menus as $menu) {
+          $menu_list .= $menu;
+          $count++;
+          if ($count < (count($menus))) {
+            $menu_list .= ', ';
+          }
+        }
+      }
+    }
+    return $this->sanitize_value($menu_list);
+  }
 }

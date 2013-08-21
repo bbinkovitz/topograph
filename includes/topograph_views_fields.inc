@@ -152,11 +152,6 @@ function topograph_list_all_fields() {
       'empty_column' => 0,
     ),
   );
-  /* Relationship: Broken/missing handler */
-  $handler->display->display_options['relationships']['field_rel']['id'] = 'field_rel';
-  $handler->display->display_options['relationships']['field_rel']['table'] = 'field_config';
-  $handler->display->display_options['relationships']['field_rel']['field'] = 'field_rel';
-  $handler->display->display_options['relationships']['field_rel']['required'] = TRUE;
   /* Field: Topograph: Field Name */
   $handler->display->display_options['fields']['field_name']['id'] = 'field_name';
   $handler->display->display_options['fields']['field_name']['table'] = 'field_config';
@@ -220,7 +215,10 @@ function topograph_list_all_fields() {
   $handler->display->display_options['fields']['title_label']['label'] = 'Title Label';
   $handler->display->display_options['fields']['title_label']['exclude'] = TRUE;
   $handler->display->display_options['fields']['title_label']['empty'] = '[none]';
-
+  /* Field: Nodtype: Available menus */
+  $handler->display->display_options['fields']['nodetype_menus']['id'] = 'nodetype_menus';
+  $handler->display->display_options['fields']['nodetype_menus']['table'] = 'node_type';
+  $handler->display->display_options['fields']['nodetype_menus']['field'] = 'nodetype_menus';
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'topograph-list-all-fields';
