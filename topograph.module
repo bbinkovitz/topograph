@@ -48,15 +48,17 @@ function topograph_views_post_execute(&$view) {
   }
   if ($view->name == 'topograph_list_all_fields') {
     foreach ($view->result as $row) {
-      $data = unserialize($row->field_config_instance_data);
-      $info = '';
-      $info .= $data['label'];
-      if (!empty($data['description'])) { $info .= ' (' . $data['description'] . ')';}
+      if (isset($row->field_config_instance_data)) {
+        $data = unserialize($row->field_config_instance_data);
+        $info = '';
+        $info .= $data['label'];
+       if (!empty($data['description'])) { $info .= ' (' . $data['description'] . ')';}
 
-      $row->field_config_instance_data = $info;
-
-      $data_base = unserialize($row->field_config_data);
-      dpm($data_base);
+       $row->field_config_instance_data = $info;
+      }
+      if (isset($row->field_config_data)) {
+        $data_base = unserialize($row->field_config_data);
+      }
     }
   }
 }
